@@ -45,7 +45,21 @@ public class MessageServlet extends HttpServlet {
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
+        
+        InetAddress ip = null;
+        String hostname = null;
+        try {
+            ip = InetAddress.getLocalHost();
+            hostname = ip.getHostName();
+            System.out.println("Your current IP address : " + ip);
+            System.out.println("Your current Hostname : " + hostname);
+ 
+        } catch (UnknownHostException e) {
+        }
+        
         writer.write(message);
+        if (ip != null)
+            writer.write(ip.getHostAddress());
         writer.close();
     }
 
